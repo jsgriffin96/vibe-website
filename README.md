@@ -1,12 +1,13 @@
-# Vibe a Website — Before You Arrive
+# Vibe a Website
 
-Pre-work checklist for the **Vibe a Website** workshop.
+Materials for the **Vibe a Website** workshop.
 
-**👉 Read it here: https://jsgriffin96.github.io/vibe-website/**
+**👉 Pre-work checklist: https://jsgriffin96.github.io/vibe-website/**
+**👉 Slides: https://jsgriffin96.github.io/vibe-website/slides.html**
 
 CCIDM · College of Business Administration · Cal Poly Pomona
 
-## What this is
+## The pre-work checklist
 
 A ~15-minute setup checklist students complete before class, so class time goes to
 building rather than installing. It covers ChatGPT (campus account), a text editor,
@@ -21,18 +22,41 @@ button. Everything runs client-side; nothing is submitted anywhere.
 | File | Purpose |
 |---|---|
 | `index.html` | The rendered checklist — fully self-contained (CSS, JS, and fonts embedded) |
-| `.nojekyll` | Tells GitHub Pages to serve the file as-is, without Jekyll processing |
+| `slides.html` | The rendered workshop deck — the **audience** copy (see multiplex below) |
+| `.nojekyll` | Tells GitHub Pages to serve the files as-is, without Jekyll processing |
 
-## Updating the page
+## The slides
 
-`index.html` is **rendered output**, not the source. The Quarto source
-(`prework-checklist.qmd` plus its theme and include files) lives in the private
-`ccidm-scripts` repo under `workshop-planning/vibe-website/`.
+The deck has [reveal.js multiplex](https://quarto.org/docs/presentations/revealjs/presenting.html#multiplex)
+turned on: when you advance the speaker copy, every browser viewing `slides.html`
+advances with you. Students follow along on their own screens at their own zoom level.
+
+Rendering produces **two** files:
+
+| File | Who it's for |
+|---|---|
+| `slides.html` | Audience. Read-only — it follows the speaker, it can't drive. |
+| `slides-speaker.html` | **You, locally.** Embeds the control secret. |
+
+`slides-speaker.html` is gitignored here on purpose. Anyone who opens it can control
+the deck for every connected viewer, so it must never be pushed to a public repo —
+open it from your own machine on presentation day.
+
+Both files share a socket ID baked in at render time. Re-rendering mints a **new**
+ID and secret, so the speaker and audience copies must always come from the same
+render — if you re-render, republish `slides.html` too or the two stop talking.
+
+## Updating a page
+
+The `.html` files here are **rendered output**, not source. The Quarto sources
+(`prework-checklist.qmd`, `slides.qmd`, plus their theme and include files) live in
+the private `ccidm-scripts` repo under `workshop-planning/vibe-website/`.
 
 To publish a change:
 
-1. Edit `prework-checklist.qmd` in `ccidm-scripts`
-2. `quarto render prework-checklist.qmd`
-3. Copy the result here as `index.html`, then commit and push
+1. Edit the `.qmd` in `ccidm-scripts`
+2. `quarto render prework-checklist.qmd` (or `slides.qmd`)
+3. Copy the result here — `prework-checklist.html` becomes `index.html`; `slides.html`
+   keeps its name. Then commit and push.
 
 GitHub Pages redeploys automatically on push to `main`, usually within a minute.
