@@ -42,9 +42,14 @@ Rendering produces **two** files:
 the deck for every connected viewer, so it must never be pushed to a public repo —
 open it from your own machine on presentation day.
 
-Both files share a socket ID baked in at render time. Re-rendering mints a **new**
-ID and secret, so the speaker and audience copies must always come from the same
-render — if you re-render, republish `slides.html` too or the two stop talking.
+Both files share a socket ID baked in at render time, and they only sync if they
+carry the **same** ID. Quarto reuses the existing ID as long as the previously
+rendered `slides.html` / `slides-speaker.html` are still sitting in the source
+folder — so ordinary re-renders are safe. Deleting those outputs first (or
+rendering on a fresh clone or a different machine) mints a **new** ID and secret.
+
+Either way, republish `slides.html` whenever you re-render, so the published
+audience copy always matches your local speaker copy.
 
 ## Updating a page
 
